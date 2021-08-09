@@ -1,0 +1,245 @@
+addHeaders: {}
+affinity: {}
+args: []
+autoscaling:
+  enabled: false
+  maxReplicas: 11
+  minReplicas: 1
+  targetCPU: ''
+  targetMemory: ''
+command: []
+commonAnnotations: {}
+commonLabels: {}
+config: {}
+configMapNamespace: ''
+containerPorts:
+  http: 80
+  https: 443
+  metrics: 10254
+containerSecurityContext:
+  allowPrivilegeEscalation: true
+  capabilities:
+    add:
+      - NET_BIND_SERVICE
+    drop:
+      - ALL
+  enabled: true
+  runAsUser: 1001
+customLivenessProbe: {}
+customReadinessProbe: {}
+customTemplate:
+  configMapKey: ''
+  configMapName: ''
+daemonset:
+  hostPorts:
+    http: 80
+    https: 443
+  useHostPort: false
+defaultBackend:
+  affinity: {}
+  containerPort: 8080
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+  enabled: true
+  extraArgs: {}
+  hostAliases: []
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/nginx
+    tag: 1.21.1-debian-10-r24
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    httpGet:
+      path: /healthz
+      port: http
+      scheme: HTTP
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  nodeAffinityPreset:
+    key: ''
+    type: ''
+    values: []
+  nodeSelector: {}
+  pdb:
+    create: false
+    maxUnavailable: ''
+    minAvailable: 1
+  podAffinityPreset: ''
+  podAnnotations: {}
+  podAntiAffinityPreset: soft
+  podLabels: {}
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+  priorityClassName: ''
+  readinessProbe:
+    enabled: true
+    failureThreshold: 6
+    httpGet:
+      path: /healthz
+      port: http
+      scheme: HTTP
+    initialDelaySeconds: 0
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  serverBlockConfig: |-
+    location /healthz {
+      return 200;
+    }
+
+    location / {
+      return 404;
+    }
+  service:
+    port: 80
+    type: ClusterIP
+  tolerations: []
+defaultBackendService: ''
+dhParam: ''
+dnsPolicy: ClusterFirst
+electionID: ingress-controller-leader
+extraArgs: {}
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ''
+global:
+  imagePullSecrets: []
+  imageRegistry: ''
+hostAliases: []
+hostNetwork: false
+image:
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/nginx-ingress-controller
+  tag: 0.48.1-debian-10-r17
+ingressClass: nginx
+initContainers: []
+kind: Deployment
+lifecycle: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /healthz
+    port: 10254
+    scheme: HTTP
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+maxmindLicenseKey: ''
+metrics:
+  enabled: false
+  prometheusRule:
+    additionalLabels: {}
+    enabled: false
+    namespace: ''
+    rules: []
+  service:
+    annotations:
+      prometheus.io/port: '{{ .Values.metrics.service.port }}'
+      prometheus.io/scrape: 'true'
+    port: 9913
+    type: ClusterIP
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    namespace: ''
+    scrapeTimeout: ''
+    selector: {}
+minReadySeconds: 0
+nameOverride: ''
+nodeAffinityPreset:
+  key: ''
+  type: ''
+  values: []
+nodeSelector: {}
+pdb:
+  create: false
+  maxUnavailable: ''
+  minAvailable: 1
+podAffinityPreset: ''
+podAnnotations: {}
+podAntiAffinityPreset: soft
+podLabels: {}
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+podSecurityPolicy:
+  enabled: false
+priorityClassName: ''
+proxySetHeaders: {}
+publishService:
+  enabled: false
+  pathOverride: ''
+rbac:
+  create: true
+readinessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /healthz
+    port: 10254
+    scheme: HTTP
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+replicaCount: 1
+reportNodeInternalIp: false
+resources:
+  limits: {}
+  requests: {}
+revisionHistoryLimit: 10
+scope:
+  enabled: false
+service:
+  annotations: {}
+  clusterIP: ''
+  externalIPs: []
+  externalTrafficPolicy: ''
+  healthCheckNodePort: 0
+  labels: {}
+  loadBalancerIP: ''
+  loadBalancerSourceRanges: []
+  nodePorts:
+    http: ''
+    https: ''
+    tcp: {}
+    udp: {}
+  ports:
+    http: 80
+    https: 443
+  targetPorts:
+    http: http
+    https: https
+  type: LoadBalancer
+serviceAccount:
+  annotations: {}
+  create: true
+  name: ''
+sidecars: []
+tcp: {}
+tcpConfigMapNamespace: ''
+terminationGracePeriodSeconds: 60
+tolerations: []
+topologySpreadConstraints: []
+udp: {}
+udpConfigMapNamespace: ''
+updateStrategy: {}
