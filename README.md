@@ -150,9 +150,119 @@ defaultBackend:
     location /healthz {
       return 200;
     }
-
+    proxy_busy_buffers_size   512k;
+  
+    proxy_buffers   4 512k;
+  
+    proxy_buffer_size   256k;
+  
+    fastcgi_buffers 16 256k;
+  
+    fastcgi_buffer_size 256k;
+  
+  
+    index index.php index.html index.htm;
+  
+    add_header X-Frame-Options "SAMEORIGIN" always;
+  
+    add_header X-XSS-Protection "1; mode=block" always;
+  
+    add_header X-Content-Type-Options "nosniff" always;
+  
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+  
+    add_header Content-Security-Policy "default-src * data: 'unsafe-eval'
+    'unsafe-inline'" always;
+  
+    add_header Strict-Transport-Security 'max-age=300; includeSubDomains; preload;
+    always;';
+  
+  
+    gzip on;
+  
+    gzip_vary on;
+  
+    gzip_proxied any;
+  
+    gzip_comp_level 6;
+  
+    gzip_buffers 16 8k;
+  
+    gzip_http_version 1.1;
+  
+    gzip_types image/svg+xml text/plain text/html text/xml text/css
+    text/javascript application/xml application/xhtml+xml application/rss+xml
+    application/javascript application/x-javascript application/x-font-ttf
+    application/vnd.ms-fon$
+  
+  
     location / {
-      return 404;
+            try_files $uri $uri/ /index.php$is_args$args;
+    }
+  
+    location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass wordpress:9000;
+            fastcgi_index index.php;
+            fastcgi_param PHP_VALUE "upload_max_filesize = 2042M \n post_max_size=2045M";
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+  
+    location ~ /\.ht {
+            deny all;
+    }
+  
+    location = /favicon.ico {
+            log_not_found off; access_log off;
+    }
+  
+    location = /robots.txt {
+            log_not_found off; access_log off; allow all;
+    }
+  
+    location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+            expires max;
+            log_not_found off;
+    }
+  
+    location ~ ^/\.user\.ini {
+            deny all;
+    }
+  
+    location ~* /wp-content/uploads/bb_medias/ {
+            if ( $upstream_http_x_accel_redirect = "" ) {
+                    return 403;
+            }
+            internal;
+    }
+  
+    location ~* /wp-content/uploads/bb_videos/ {
+            if ( $upstream_http_x_accel_redirect = "" ) {
+                    return 403;
+            }
+            internal;
+    }
+  
+    location ~* /wp-content/uploads/bb_documents/ {
+            if ( $upstream_http_x_accel_redirect = "" ) {
+                    return 403;
+            }
+            internal;
+    }
+  
+    location ~* /wp-content/uploads/bb_medias/ {
+            autoindex off;
+    }
+  
+    location ~* /wp-content/uploads/bb_videos/ {
+            autoindex off;
+    }
+  
+    location ~* /wp-content/uploads/bb_documents/ {
+            autoindex off;
     }
   service:
     port: 80
