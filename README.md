@@ -654,7 +654,7 @@ autoscaling:
   minReplicas: 1
   targetCPU: 50
   targetMemory: 50
-clusterDomain: <add your domain here>
+clusterDomain: cluster.local
 command: []
 commonAnnotations: {}
 commonLabels: {}
