@@ -667,7 +667,23 @@ containerSecurityContext:
   runAsUser: 1001
 customHTAccessCM: ''
 customLivenessProbe: {}
-customPostInitScripts: {}
+customPostInitScripts:
+   make-all-persist.sh: |
+     #!/bin/bash
+     cp -r /opt/bitnami/wordpress /bitnami/wordpress
+     cp -r /opt/bitnami/apache /bitnami/wordpress
+     cp -r /opt/bitnami/apache2 /bitnami/wordpress
+     cp -r /opt/bitnami/php /bitnami/wordpress
+     sleep 4
+     rm -r /opt/bitnami/wordpress
+     rm -r /opt/bitnami/apache
+     rm -r /opt/bitnami/apache2
+     rm -r /opt/bitnami/php
+     sleep 2
+     ln -s /bitnami/wordpress/wordpress /opt/bitnami/wordpress
+     ln -s /bitnami/wordpress/apache /opt/bitnami/apache
+     ln -s /bitnami/wordpress/apache2 /opt/bitnami/apache2
+     ln -s /bitnami/wordpress/php /opt/bitnami/php
 customReadinessProbe: {}
 diagnosticMode:
   args:
