@@ -654,7 +654,7 @@ autoscaling:
   minReplicas: 1
   targetCPU: 50
   targetMemory: 50
-clusterDomain: cluster.local
+clusterDomain: <add your domain here>
 command: []
 commonAnnotations: {}
 commonLabels: {}
@@ -702,6 +702,7 @@ global:
 hostAliases:
   - hostnames:
       - status.localhost
+      - <add your domain here>
     ip: 127.0.0.1
 htaccessPersistenceEnabled: true
 image:
