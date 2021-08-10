@@ -148,8 +148,13 @@ defaultBackend:
     requests: {}
   serverBlockConfig: |-
     location /healthz {
-      return 200;
+            return 200;
     }
+    location ~ /.well-known/acme-challenge {
+            allow all;
+            root /var/www/html;
+    }
+
     proxy_busy_buffers_size   512k;
     proxy_buffers   4 512k;
     proxy_buffer_size   256k;
@@ -547,6 +552,7 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
+  namespace: <ENTER YOUR NAMESPACE>
   labels:
     name: letsencrypt-prod
 spec:
@@ -563,6 +569,27 @@ spec:
 than do:
 ```
 kubectl apply -f letsencrypt-prod.yaml
+```
+now you need to make the certificate.yaml
+```
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-prod
+  namespace: <ENTER YOUR NAMESPACE>
+  labels:
+    name: certificate-prod
+spec:
+  dnsNames:
+    - <enter your domain>
+  secretName: certificate-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+```
+and than
+```
+kubectl apply -f certificate.yaml
 ```
 ## Wordpress Setup:
 after that you will now install wordpress using the bitnami charts.
