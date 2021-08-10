@@ -8,7 +8,7 @@ metadata:
 spec:
   dnsNames:
     - <enter your domain>
-  secretName: certificate-tls
+  secretName: <your-domain>-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
