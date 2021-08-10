@@ -583,7 +583,7 @@ metadata:
 spec:
   dnsNames:
     - <enter your domain>
-  secretName: certificate-tls
+  secretName: <enter your domain>-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -615,9 +615,7 @@ helm install <releasename> bitnami/wordpress --namespace <namespace> \
   --set ingress.certManager=true \
   --set ingress.annotations."kubernetes\.io/ingress\.class"=nginx \
   --set ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod \
-  --set ingress.hostname=<Change to your domain> \
-  --set ingress.extraTls[0].hosts[0]=<Change to your domain> \
-  --set ingress.extraTls[0].secretName=wordpress.local-tls
+  --set ingress.hostname=<Change to your domain>
 ```
 main default (puts it in a default namespace but you change the release name. NOT ENTIRELY RECOMENDED BUT WON'T HURT should be in a different name space):
 ```
@@ -629,9 +627,7 @@ helm install <releasename> bitnami/wordpress \
   --set ingress.certManager=true \
   --set ingress.annotations."kubernetes\.io/ingress\.class"=nginx \
   --set ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod \
-  --set ingress.hostname=<Change to your domain> \
-  --set ingress.extraTls[0].hosts[0]=<Change to your domain> \
-  --set ingress.extraTls[0].secretName=wordpress.local-tls
+  --set ingress.hostname=<Change to your domain>
 ```
 base (full default. NOT RECOMENDED should have a different release name at LEAST):
 ```
@@ -643,9 +639,7 @@ helm install wordpress bitnami/wordpress \
   --set ingress.certManager=true \
   --set ingress.annotations."kubernetes\.io/ingress\.class"=nginx \
   --set ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod \
-  --set ingress.hostname=<Change to your domain> \
-  --set ingress.extraTls[0].hosts[0]=<Change to your domain> \
-  --set ingress.extraTls[0].secretName=wordpress.local-tls
+  --set ingress.hostname=<Change to your domain>
 ```
 values.yaml (based on ranchers):
 ```
@@ -732,7 +726,7 @@ ingress:
   path: /
   pathType: ImplementationSpecific
   secrets: []
-  tls: false
+  tls: true
 initContainers: []
 kubeVersion: ''
 livenessProbe:
@@ -893,5 +887,4 @@ wordpressScheme: http
 wordpressSkipInstall: false
 wordpressTablePrefix: wp_
 wordpressUsername: user
-
 ```
