@@ -1,11 +1,11 @@
 # Kubernetes Website
 ## References: 
-https://docs.bitnami.com/tutorials/secure-wordpress-kubernetes-managed-database-ssl-upgrades/ (Secure traffic with TLS and Let's Encrypt SSL certificates)
+##### https://docs.bitnami.com/tutorials/secure-wordpress-kubernetes-managed-database-ssl-upgrades/ (Secure traffic with TLS and Let's Encrypt SSL certificates)
 ##### https://charts.bitnami.com/bitnami
 ##### https://charts.jetstack.io
 
 ## Prereq
-make sure you have helm charts (if your using rancher go to Apps&market place):
+##### make sure you have helm charts (if your using rancher go to Apps&market place):
 ##### https://charts.bitnami.com/bitnami
 ##### https://charts.jetstack.io
 ##### if you don't use rancher or don't have them there will also be code snippets for them too.
