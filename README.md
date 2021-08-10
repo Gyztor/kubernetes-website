@@ -6,8 +6,11 @@ https://charts.jetstack.io
 
 ## Prereq
 make sure you have helm charts (if your using rancher go to Apps&market place):
+#####
 https://charts.bitnami.com/bitnami
+#####
 https://charts.jetstack.io
+#####
 if you don't use rancher or don't have them there will also be code snippets for them too.
 
 
