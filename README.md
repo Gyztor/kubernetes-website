@@ -1,4 +1,5 @@
 # Kubernetes Website
+note: I don't know how much I can maintain this but I will do my best
 ## References: 
 ##### https://docs.bitnami.com/tutorials/secure-wordpress-kubernetes-managed-database-ssl-upgrades/ (Secure traffic with TLS and Let's Encrypt SSL certificates)
 ##### https://charts.bitnami.com/bitnami
