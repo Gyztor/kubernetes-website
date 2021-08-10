@@ -151,50 +151,27 @@ defaultBackend:
       return 200;
     }
     proxy_busy_buffers_size   512k;
-  
     proxy_buffers   4 512k;
-  
     proxy_buffer_size   256k;
-  
     fastcgi_buffers 16 256k;
-  
     fastcgi_buffer_size 256k;
   
-  
     index index.php index.html index.htm;
-  
     add_header X-Frame-Options "SAMEORIGIN" always;
-  
     add_header X-XSS-Protection "1; mode=block" always;
-  
     add_header X-Content-Type-Options "nosniff" always;
-  
     add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
   
-    add_header Content-Security-Policy "default-src * data: 'unsafe-eval'
-    'unsafe-inline'" always;
-  
-    add_header Strict-Transport-Security 'max-age=300; includeSubDomains; preload;
-    always;';
-  
+    add_header Strict-Transport-Security 'max-age=300; includeSubDomains; preload; always;';
   
     gzip on;
-  
     gzip_vary on;
-  
     gzip_proxied any;
-  
     gzip_comp_level 6;
-  
     gzip_buffers 16 8k;
-  
     gzip_http_version 1.1;
-  
-    gzip_types image/svg+xml text/plain text/html text/xml text/css
-    text/javascript application/xml application/xhtml+xml application/rss+xml
-    application/javascript application/x-javascript application/x-font-ttf
-    application/vnd.ms-fon$
-  
+    gzip_types image/svg+xml text/plain text/html text/xml text/css text/javascript application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/x-font-ttf application/vnd.ms-fontobject font/opentype font/ttf font/eot font/otf;
   
     location / {
             try_files $uri $uri/ /index.php$is_args$args;
@@ -263,6 +240,25 @@ defaultBackend:
   
     location ~* /wp-content/uploads/bb_documents/ {
             autoindex off;
+    }
+    location ~* /wp-content/.*\.(png|jpe?g)$ {
+            add_header Vary Accept;
+            expires 365d;
+            if ($http_accept !~* "webp"){
+                        break;
+            }
+            try_files
+            /wp-content/webp-express/webp-images/doc-root/$uri.webp
+            $uri.webp
+            /wp-content/plugins/webp-express/wod/webp-on-demand.php?xsource=x$request_filename&wp-content=wp-content
+            ;
+    }
+    
+    location ~* ^/?wp-content/.*\.(png|jpe?g)\.webp$ {
+            try_files
+            $uri
+            /wp-content/plugins/webp-express/wod/webp-realizer.php?xdestination=x$request_filename&wp-content=wp-content
+            ;
     }
   service:
     port: 80
