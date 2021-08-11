@@ -582,10 +582,9 @@ metadata:
     name: certificate-prod
 spec:
   dnsNames:
-    - human-insights.org
-    - www.human-insights.org
-    - welcome.human-insights.org
-  secretName: human-insights.org-tls
+    - <YOUR DOMAIN HERE
+    - www.<YOUR DOMAIN HERE>
+  secretName: <YOUR DOMAIN HERE>-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -836,9 +835,8 @@ global:
 hostAliases:
   - hostnames:
       - status.localhost
-      - human-insights.org
-      - www.human-insights.org
-      - welcome.human-insights.org
+      - <YOUR DOMAIN HERE>
+      - www.<YOUR DOMAIN HERE>
     ip: 127.0.0.1
 htaccessPersistenceEnabled: true
 image:
@@ -856,17 +854,14 @@ ingress:
   certManager: true
   enabled: true
   extraHosts:
-    - name: www.human-insights.org
-      path: /
-    - name: welcome.human-insights.org
+    - name: www.<YOUR DOMAIN HERE>
       path: /
   extraPaths: []
   extraTls:
     - hosts:
-      - www.human-insights.org
-      - welcome.human-insights.org
-    secretName: human-insights.org-tls
-  hostname: human-insights.org
+      - www.<YOUR DOMAIN HERE>
+    secretName: <YOUR DOMAIN HERE>-tls
+  hostname: <YOUR DOMAIN HERE>
   ingressClassName: ''
   path: /
   pathType: ImplementationSpecific
