@@ -851,9 +851,14 @@ ingress:
   apiVersion: ''
   certManager: true
   enabled: true
-  extraHosts: []
+  extraHosts:
+    - name: www.<PUT DOMAIN HERE>
+      path: /
   extraPaths: []
-  extraTls: []
+  extraTls:
+  - hosts:
+      - www.<PUT DOMAIN HERE>
+    secretName: <PUT DOMAIN HERE>-tls
   hostname: <domain>
   ingressClassName: ''
   path: /
