@@ -860,7 +860,7 @@ ingress:
   extraTls:
     - hosts:
       - www.<YOUR DOMAIN HERE>
-    secretName: <YOUR DOMAIN HERE>-tls
+      secretName: <YOUR DOMAIN HERE>-tls
   hostname: <YOUR DOMAIN HERE>
   ingressClassName: ''
   path: /
