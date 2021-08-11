@@ -577,13 +577,15 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: certificate-prod
-  namespace: <ENTER YOUR NAMESPACE>
+  namespace: hi-cert
   labels:
     name: certificate-prod
 spec:
   dnsNames:
-    - <enter your domain>
-  secretName: <enter your domain>-tls
+    - human-insights.org
+    - www.human-insights.org
+    - welcome.human-insights.org
+  secretName: human-insights.org-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -834,7 +836,9 @@ global:
 hostAliases:
   - hostnames:
       - status.localhost
-      - <add your domain here>
+      - human-insights.org
+      - www.human-insights.org
+      - welcome.human-insights.org
     ip: 127.0.0.1
 htaccessPersistenceEnabled: true
 image:
@@ -852,14 +856,17 @@ ingress:
   certManager: true
   enabled: true
   extraHosts:
-    - name: www.<PUT DOMAIN HERE>
+    - name: www.human-insights.org
+      path: /
+    - name: welcome.human-insights.org
       path: /
   extraPaths: []
   extraTls:
-  - hosts:
-      - www.<PUT DOMAIN HERE>
-    secretName: <PUT DOMAIN HERE>-tls
-  hostname: <domain>
+    - hosts:
+      - www.human-insights.org
+      - welcome.human-insights.org
+    secretName: human-insights.org-tls
+  hostname: human-insights.org
   ingressClassName: ''
   path: /
   pathType: ImplementationSpecific
@@ -1021,7 +1028,7 @@ wordpressFirstName: FirstName
 wordpressLastName: LastName
 wordpressPassword: ''
 wordpressPlugins: none
-wordpressScheme: http
+wordpressScheme: https
 wordpressSkipInstall: false
 wordpressTablePrefix: wp_
 wordpressUsername: user
