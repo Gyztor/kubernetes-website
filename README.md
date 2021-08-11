@@ -154,7 +154,6 @@ defaultBackend:
     }
     location ~ /.well-known/acme-challenge {
             allow all;
-            root /var/www/html;
     }
 
     proxy_busy_buffers_size   512k;
