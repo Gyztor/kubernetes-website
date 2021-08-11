@@ -16,6 +16,7 @@ note: I don't know how much I can maintain this but I will do my best
 
 
 ## Nginx Setup:
+##### IF NGINX-DEFAULT-BACKEND HAS AN ERROR THAN INSTALL EVERYTHING ELSE THAN REMOVE NGINX AND REINSTALL IT I NOTICED THAT SEEMS TO FIX THAT ISSUE
 first install bitnami's nginx ingress controller (https://github.com/bitnami/charts/tree/master/bitnami/nginx-ingress-controller)
 it is preferable not to have namespace be default (best results so far.)
 
