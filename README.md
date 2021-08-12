@@ -655,7 +655,7 @@ autoscaling:
   minReplicas: 1
   targetCPU: 50
   targetMemory: 50
-clusterDomain: cluster.local
+clusterDomain: <YOUR DOMAIN>
 command: []
 commonAnnotations: {}
 commonLabels: {}
@@ -664,7 +664,7 @@ containerPorts:
   https: 8443
 containerSecurityContext:
   enabled: true
-  runAsNonRoot: true
+  runAsNonRoot: false
   runAsUser: 1001
 customHTAccessCM: ''
 customLivenessProbe: {}
